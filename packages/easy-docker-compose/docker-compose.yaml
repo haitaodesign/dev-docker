@@ -1,0 +1,30 @@
+version: '1.0'
+
+volumes:
+  mongodb_data:
+  mysql_data:
+  verdaccio-data:
+
+services:
+  mongo:
+    image: bitnami/mongodb:5.0.8
+    volumes:
+      - 'mongodb_data:/Users/Shared/mongodb'
+    ports:
+      - "27017:27017"
+
+  mysql:
+    image: bitnami/mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - 'mysql_data:/Users/Shared/mysql'
+    ports:
+      - "3306:3306"
+
+  verdaccio:
+    image: verdaccio/verdaccio
+    ports:
+      - "4873:4873"
+    volumes:
+      - verdaccio-data:/verdaccio/storage
